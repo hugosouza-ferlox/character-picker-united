@@ -1,0 +1,344 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'American Captain';
+  src: url('/fonts/American Captain.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --radius: 0.5rem;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-gray-900 text-white;
+  }
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 767px) {
+  /* Ensure touch targets are large enough */
+  button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Prevent fixed elements from overlapping content */
+  main {
+    padding-bottom: 80px; /* Space for mobile action bar */
+  }
+
+  /* Improve touch interactions */
+  .character-card-wrapper {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Ensure hover effects work on touch devices */
+  @media (hover: hover) {
+    .character-card-wrapper:hover {
+      /* Hover styles only apply on devices that support hover */
+    }
+  }
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+/* Assemble Button Styles */
+.cta-button {
+  text-decoration: none;
+}
+
+.cta-button:focus {
+  outline: none;
+}
+
+.cta-button:hover {
+  transition: 0.5s;
+  box-shadow: 10px 10px 0 #FBC638 !important;
+}
+
+.cta-button:hover span:nth-child(2) {
+  margin-right: 45px;
+}
+
+.arrow-one {
+  transition: 0.4s;
+  transform: translateX(-60%);
+}
+
+.arrow-two {
+  transition: 0.5s;
+  transform: translateX(-30%);
+}
+
+.cta-button:hover .arrow-three {
+  animation: color_anim 1s infinite 0.2s;
+}
+
+.cta-button:hover .arrow-one {
+  transform: translateX(0%);
+  animation: color_anim 1s infinite 0.6s;
+}
+
+.cta-button:hover .arrow-two {
+  transform: translateX(0%);
+  animation: color_anim 1s infinite 0.4s;
+}
+
+@keyframes color_anim {
+  0% {
+    fill: white;
+  }
+  50% {
+    fill: #FBC638;
+  }
+  100% {
+    fill: white;
+  }
+}
+
+/* Holographic sheen effect on image hover */
+.group\/image:hover .holographic-sheen {
+  opacity: 1 !important;
+  transform: rotate(-45deg) translateY(100%) !important;
+}
+
+/* Hover underline effect for character names */
+.hover-underline-name {
+  position: relative;
+  display: inline-block;
+}
+
+.hover-underline-name::after,
+.hover-underline-name::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s ease-out;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hover-underline-name::before {
+  top: -5px;
+  transform-origin: left;
+}
+
+/* Blue theme for heroes */
+.hover-underline-blue::after,
+.hover-underline-blue::before {
+  background: linear-gradient(to right, rgba(59, 130, 246, 0.8), rgba(147, 197, 253, 0.8));
+}
+
+/* Trigger on card hover - using character-card-wrapper class */
+.character-card-wrapper:hover .hover-underline-blue::after,
+.character-card-wrapper:hover .hover-underline-blue::before {
+  transform: scaleX(1) !important;
+}
+
+/* Also trigger on direct hover of the name */
+.hover-underline-blue:hover::after,
+.hover-underline-blue:hover::before {
+  transform: scaleX(1) !important;
+}
+
+/* Purple theme for anti-heroes */
+.hover-underline-purple::after,
+.hover-underline-purple::before {
+  background: linear-gradient(to right, rgba(168, 85, 247, 0.8), rgba(196, 181, 253, 0.8));
+}
+
+/* Trigger on card hover */
+.character-card-wrapper:hover .hover-underline-purple::after,
+.character-card-wrapper:hover .hover-underline-purple::before {
+  transform: scaleX(1) !important;
+}
+
+/* Also trigger on direct hover of the name */
+.hover-underline-purple:hover::after,
+.hover-underline-purple:hover::before {
+  transform: scaleX(1) !important;
+}
+
+/* Yellow theme for selected cards */
+.hover-underline-yellow::after,
+.hover-underline-yellow::before {
+  background: linear-gradient(to right, rgba(234, 179, 8, 0.8), rgba(253, 224, 71, 0.8));
+  transform: scaleX(1) !important;
+}
+
+/* Trigger on card hover */
+.character-card-wrapper:hover .hover-underline-yellow::after,
+.character-card-wrapper:hover .hover-underline-yellow::before {
+  transform: scaleX(1) !important;
+}
+
+@layer utilities {
+  /* Custom range slider styles */
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  input[type="range"]::-webkit-slider-track {
+    background: #1f2937;
+    height: 8px;
+    border-radius: 4px;
+    border: 1px solid #111827;
+  }
+
+  input[type="range"]::-moz-range-track {
+    background: #1f2937;
+    height: 8px;
+    border-radius: 4px;
+    border: 1px solid #111827;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    background: #6b7280;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    border: 2px solid #000000;
+    margin-top: -5px;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    background: #6b7280;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    border: 2px solid #000000;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  }
+
+  input[type="range"]:hover::-webkit-slider-thumb {
+    background: #9ca3af;
+    transform: scale(1.15);
+  }
+
+  input[type="range"]:hover::-moz-range-thumb {
+    background: #9ca3af;
+    transform: scale(1.15);
+  }
+
+  /* Color-specific slider tracks and thumbs */
+  input[type="range"][data-color="yellow"]::-webkit-slider-track {
+    background: linear-gradient(to right, #eab308 0%, #1f2937 0%);
+  }
+
+  input[type="range"][data-color="yellow"]::-webkit-slider-thumb {
+    background: #eab308;
+  }
+
+  input[type="range"][data-color="yellow"]::-moz-range-track {
+    background: #1f2937;
+  }
+
+  input[type="range"][data-color="yellow"]::-moz-range-thumb {
+    background: #eab308;
+  }
+
+  input[type="range"][data-color="red"]::-webkit-slider-track {
+    background: #1f2937;
+  }
+
+  input[type="range"][data-color="red"]::-webkit-slider-thumb {
+    background: #ef4444;
+  }
+
+  input[type="range"][data-color="red"]::-moz-range-track {
+    background: #1f2937;
+  }
+
+  input[type="range"][data-color="red"]::-moz-range-thumb {
+    background: #ef4444;
+  }
+
+  input[type="range"][data-color="green"]::-webkit-slider-track {
+    background: #1f2937;
+  }
+
+  input[type="range"][data-color="green"]::-webkit-slider-thumb {
+    background: #22c55e;
+  }
+
+  input[type="range"][data-color="green"]::-moz-range-track {
+    background: #1f2937;
+  }
+
+  input[type="range"][data-color="green"]::-moz-range-thumb {
+    background: #22c55e;
+  }
+
+  input[type="range"][data-color="gray"]::-webkit-slider-track {
+    background: #1f2937;
+  }
+
+  input[type="range"][data-color="gray"]::-webkit-slider-thumb {
+    background: #9ca3af;
+  }
+
+  input[type="range"][data-color="gray"]::-moz-range-track {
+    background: #1f2937;
+  }
+
+  input[type="range"][data-color="gray"]::-moz-range-thumb {
+    background: #9ca3af;
+  }
+}
+
